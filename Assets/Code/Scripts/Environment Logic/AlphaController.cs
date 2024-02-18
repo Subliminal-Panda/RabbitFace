@@ -14,14 +14,6 @@ public class AlphaController : MonoBehaviour
             Debug.LogError("Target material is not assigned!");
             return;
         }
-
-        // // Ensure the alpha value is within the valid range
-        // alphaValue = Mathf.Clamp01(alphaValue);
-
-        // // Set the initial alpha value in the material's color property
-        // Color materialColor = targetMaterial.color;
-        // materialColor.a = alphaValue;
-        // targetMaterial.color = materialColor;
     }
 
     void Update() 
@@ -53,8 +45,6 @@ public class AlphaController : MonoBehaviour
 
     public void SetAlphaValue(float newValue) 
     {
-        Debug.Log("setting alpha value!");
-        Debug.Log(newValue);
         alphaValue = newValue;
     }
 }

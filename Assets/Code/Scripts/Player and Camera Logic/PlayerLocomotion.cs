@@ -232,15 +232,11 @@ namespace TM
                     // player has landed after falling
 
                     float distanceFallen = initialFallPosition.y - myTransform.position.y;
-                    Debug.Log("initial fall position: " + initialFallPosition.y);
-                    Debug.Log("myTransform height: " + myTransform.position.y);
-                    Debug.Log("fall distance: " + (distanceFallen));
                     if (distanceFallen > fallThreshold)
                     {
                         if (playerStats != null)
                         {
                             int fallDamage = CalculateFallDamage(distanceFallen);
-                            Debug.Log("fall damage: " + fallDamage);
                             playerStats.TakeDamage(fallDamage);
 
                         }

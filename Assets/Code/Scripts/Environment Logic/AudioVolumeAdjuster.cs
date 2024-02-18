@@ -50,9 +50,5 @@ public class AudioVolumeAdjuster : MonoBehaviour
 
         // Set the volume of the AudioSource
         audioSource.volume = clampedValue;
-        Debug.Log("adjusted the volume of the Audio Source!");
-        Debug.Log("audio source volume:" + audioSource.volume);
-        Debug.Log("adjusted volume:" + clampedValue);
-        Debug.Log("volume variable:" + volumeVariable);
     }
 }

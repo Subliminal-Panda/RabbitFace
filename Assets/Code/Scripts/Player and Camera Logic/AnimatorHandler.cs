@@ -124,12 +124,8 @@ namespace TM
 
         public void Die()
         {
-            // anim.SetBool("isInteracting", true);
             playerLocomotion.StopMovement();
             anim.SetBool("isDead", true);
-            // PlayTargetAnimation("Death", true, true);
-            // anim.SetBool("hardFall", false);
-            // anim.SetBool("isFalling", false);
             anim.CrossFade("Death", 0f);
         }
 
