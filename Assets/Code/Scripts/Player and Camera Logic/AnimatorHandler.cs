@@ -70,11 +70,6 @@ namespace TM
             }
             #endregion
 
-            // increase the speed of the roll animation:
-            if(inputHandler.rollFlag)
-            {
-                anim.speed = 1.5f;
-            }
             // movement speed increases when sprinting:
             if (isSprinting)
             {

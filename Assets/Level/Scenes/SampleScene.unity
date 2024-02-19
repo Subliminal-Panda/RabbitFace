@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3722.9946, g: 4008.7744, b: 10776.392, a: 1}
+  m_IndirectSpecularColor: {r: 3699.545, g: 3991.9211, b: 10713.145, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18076,6 +18076,7 @@ MonoBehaviour:
   wallCheck: {x: 0.2, y: 0.2, z: 0.2}
   fallThreshold: 3
   fallDamageMultiplier: 2
+  rollTime: 0.26
   movementSpeed: 5
   sprintSpeed: 7
   rotationSpeed: 10

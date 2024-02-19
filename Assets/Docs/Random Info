@@ -1,0 +1,13 @@
+Implementing an AI system for melee combat with the described functionalities requires several scripts and components. Here's a breakdown of the necessary components and scripts:
+
+    Enemy Controller Script: This script manages the overall behavior of the enemy, including patrolling, detecting the player, pathfinding, and engaging in combat. It also handles the enemy's response to the player's actions.
+
+    Patrol System: This script defines waypoints for the enemy to patrol and determines how the enemy moves between them.
+
+    Detection System: This script detects the presence of the player within a certain range or field of view and triggers the enemy's response.
+
+    Pathfinding System: This script calculates the shortest path from the enemy to the player and updates it as necessary.
+
+    Combat System: This script manages the enemy's combat actions, such as attacking, guarding, and parrying, as well as handling the player's actions and responding accordingly.
+
+    Animation Controller: This component controls the enemy's animations based on its actions and interactions with the player.

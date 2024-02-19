@@ -37,7 +37,7 @@ namespace TM
             isInteracting = anim.GetBool("isInteracting");
             inputHandler.TickInput(delta);
             playerLocomotion.HandleMovement(delta);
-            playerLocomotion.HandleRollingAndSprinting(delta);
+            // playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
         }
 

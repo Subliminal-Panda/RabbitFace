@@ -38,6 +38,10 @@ namespace TM
         [SerializeField]
         float sprintSpeed = 7f;
         [SerializeField]
+        float rollSpeed = 2.25f;
+        [SerializeField]
+        float backStepSpeed = 2.25f;
+        [SerializeField]
         float rotationSpeed = 10f;
         [SerializeField]
         float fallingSpeed = 8f;
@@ -98,6 +102,7 @@ namespace TM
                 }
             }
 
+
             // find the camera's position on a horizontal plane, relative to player
             Vector3 horizontalCamPosition = new Vector3(cameraObject.position.x, myTransform.position.y, cameraObject.position.z);
 
@@ -111,6 +116,23 @@ namespace TM
             // combine these values to get a horizontal movement direction
             moveDirection = Vector3.ClampMagnitude(forwardMovement + horizontalMovement, 1);
             float speed = movementSpeed;
+            if (inputHandler.rollFlag) {
+                animatorHandler.StopRotation();
+                //player will move at rollSpeed until roll animation completes.
+                if(inputHandler.moveAmount > 0)
+                {
+                    moveDirection = myTransform.forward * rollSpeed;
+                    animatorHandler.PlayTargetAnimation("RollForward", true, false);
+                }
+                //player will move at backStepSpeed until backStep animation completes.
+                else
+                {
+                    moveDirection = -myTransform.forward * backStepSpeed;
+                    animatorHandler.PlayTargetAnimation("BackStep", true, false);
+                }
+            } else {
+                HandleRotation(delta);
+            }
             if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5)
             {
                 speed = sprintSpeed;
@@ -119,68 +141,28 @@ namespace TM
             }
             else
             {
-                    if (inputHandler.moveAmount < 0.5)
-                    {
-                        moveDirection *= movementSpeed;
-                        playerManager.isSprinting = false;
-                    }
-                    else
-                    {
-                        moveDirection *= speed;
-                        playerManager.isSprinting = false;
-                    }
+                if (inputHandler.moveAmount < 0.5)
+                {
+                    moveDirection *= movementSpeed;
+                    playerManager.isSprinting = false;
+                }
+                else
+                {
+                    moveDirection *= speed;
+                    playerManager.isSprinting = false;
+                }
             }
 
+            // project the player's velocity along the slope of movement
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
             rigidbody.velocity = projectedVelocity;
 
             animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
-
-            if(animatorHandler.canRotate)
-            {
-                HandleRotation(delta);
-            }
-        }
-
-        public void HandleRollingAndSprinting(float delta)
-        {
-            // prevents rolling out of animations, such as interacting with levers, etc.
-            if (animatorHandler.anim.GetBool("isInteracting") || playerManager.isInAir || !playerManager.isGrounded)
-            {
-                return;
-            }
-
-            if (inputHandler.rollFlag)
-            {
-                moveDirection = cameraObject.forward * inputHandler.vertical;
-                moveDirection += cameraObject.right * inputHandler.horizontal;
-
-                // if you're moving, this will make you roll in the direction of your movement:
-                if(inputHandler.moveAmount > 0)
-                {
-                    Vector3 startPosition = myTransform.position;
-                    Vector3 forward = myTransform.forward * .6f;
-                    forward.y = 0;
-                    StartCoroutine(MoveOverSeconds(rigidbody, myTransform.position + forward, .26f));
-                    animatorHandler.PlayTargetAnimation("RollForward", true, false);
-                    // playerManager.isInAir = true;
-                }
-                else
-                {
-                    Vector3 startPosition = myTransform.position;
-                    Vector3 backward = -myTransform.forward * 1f;
-                    backward.y = 0;
-                    StartCoroutine(MoveOverSeconds(rigidbody, myTransform.position + backward, .26f));
-                    animatorHandler.PlayTargetAnimation("BackStep", true, false);
-                    // playerManager.isInAir = true;
-                }
-            }
         }
 
         private Vector3 initialFallPosition;
         public void HandleFalling(float delta, Vector3 moveDirection)
         {
-            // playerManager.isGrounded = false;
             RaycastHit hit;
             Vector3 origin = myTransform.position;
             origin.y += groundDetectionRayStartPoint;
